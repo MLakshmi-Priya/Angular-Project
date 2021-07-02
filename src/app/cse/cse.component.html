@@ -1,0 +1,51 @@
+<h2>CSE STUDENTS DETAILS</h2>
+<header>
+  <div>
+    <table class="student-Listing">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Branch</th>
+          <th>Gpa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <th>{{student.id}}</th>
+          <td><a>{{student.name}}</a></td>
+          <td>{{student.branch}}</td>
+          <!-- <td>{{student.gpa}}</td> -->
+          <td><app-details [student]="student"></app-details></td>
+          <!-- <app-details [student]="student"></app-details> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </header>
+  <div class="container-fluid">
+    <h2>Add Student</h2>
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div>
+      <pre><label>Name:  </label></pre>
+      <input type="text"  formControlName="name">
+    </div>
+    <div>
+      <pre><label>Id:    </label></pre>
+      <input type="number"  formControlName="id">
+    </div>
+    <div>
+      <pre><label>Branch</label></pre>
+      <input type="text" formControlName="branch">
+    </div>
+    <div>
+      <pre><label>Gpa   </label></pre>
+      <input type="number" formControlName="gpa" >
+    </div>
+    <br>
+    <button type="submit">Add Student</button>
+    <!-- <button (click)= onDelete() >delete student</button> -->
+    </form>
+
+
+  </div>
