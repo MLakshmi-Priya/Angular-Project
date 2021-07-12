@@ -1,7 +1,7 @@
-<h2>CSE STUDENTS DETAILS</h2>
+<h2 align="center">CSE STUDENTS DETAILS</h2>
 <header>
   <div>
-    <table class="student-Listing">
+    <table class="student-Listing" align="center">
       <thead>
         <tr>
           <th>ID</th>
@@ -27,25 +27,41 @@
     <h2>Add Student</h2>
     <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
     <div>
-      <pre><label>Name:  </label></pre>
-      <input type="text"  formControlName="name">
+      <!-- <pre><label>Name:  </label></pre>
+      <input type="text"  formControlName="name"> -->
+      <mat-form-field>
+        <input matInput placeholder="Full Name" formControlName="name" required>
+        <mat-hint *ngIf="addForm.controls.name.errors">Full Name is required</mat-hint>
+      </mat-form-field>
+
     </div>
     <div>
-      <pre><label>Id:    </label></pre>
-      <input type="number"  formControlName="id">
+      <!-- <pre><label>Id:    </label></pre>
+      <input type="number"  formControlName="id"> -->
+      <mat-form-field>
+        <input matInput placeholder="Student ID" formControlName="id" required>
+        <mat-hint  *ngIf="addForm.controls.id.errors">Student ID is required</mat-hint>
+      </mat-form-field>
     </div>
     <div>
-      <pre><label>Branch</label></pre>
-      <input type="text" formControlName="branch">
+      <!-- <pre><label>Branch</label></pre>
+      <input type="text" formControlName="branch"> -->
+      <mat-form-field>
+        <input matInput placeholder="Branch" formControlName="branch" required>
+        <mat-hint  *ngIf="addForm.controls.branch.errors">Student branch is required</mat-hint>
+      </mat-form-field>
     </div>
     <div>
-      <pre><label>Gpa   </label></pre>
-      <input type="number" formControlName="gpa" >
+      <!-- <pre><label>Gpa   </label></pre>
+      <input type="number" formControlName="gpa" > -->
+      <mat-form-field>
+        <input matInput placeholder="GPA" formControlName="gpa" required>
+        <mat-hint  *ngIf="addForm.controls.gpa.errors">GPA is required</mat-hint>
+      </mat-form-field>
     </div>
     <br>
-    <button type="submit">Add Student</button>
+    <button type="submit" mat-raised-button  color="primary" [disabled]=addForm.invalid>Add</button>
+    <!-- <button type="submit">Add Student</button> -->
     <!-- <button (click)= onDelete() >delete student</button> -->
     </form>
-
-
-  </div>
+</div>

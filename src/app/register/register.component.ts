@@ -7,35 +7,36 @@ import { map } from 'rxjs/operators';
 
 class CustomValidators{
   static passwordContainsNumber(control: AbstractControl): Validators{
-    const regex= /\d\d/;
+    const regex = /\d\d/;
+    console.log(control);
+
     if(regex.test(control.value)&&control.value!==null){
-      return {passwordInvalid: false} ;
-    } else {
+      return true ;
+    }
+    else {
       return {passwordInvalid: true};
     }
-    console.log(control);
   }
 
+  static passwordMatch (control: AbstractControl): Validators{
 
-static passwordMatch (control: AbstractControl): Validators{
-
-  const password = control.get('passsword')?.value;
-  const passwordConfirm = control.get('passwordConfirm')?.value;
-
-   if((password === passwordConfirm) && (password!==null) && (passwordConfirm!== null)){
-     return {passwordsNotMaching: false};
-   }else {
-      return {passwordsNotMaching: true};
-    }
+    const password = control.get('password')?.value;
+    const passwordConfirm = control.get('passwordConfirm')?.value;
     console.log(control);
-   // if(password !== null || passwordConfirm !== null || password !== passwordConfirm ){
-   //   return !null;
-   // }
+
+     if((password !== null) && (passwordConfirm !== null) && (password === passwordConfirm) ){
+       return true;
+     }
+     else {
+        return { passwordsNotMaching: true };
+      }
+     // if(password !== null || passwordConfirm !== null || password !== passwordConfirm ){
+     //   return !null;
+     // }
+   }
+
  }
-}
-// function passwordMatch(g: FormGroup){
-//    return g.get('password')?.value === g.get('passwordConfirm')?.value ? null :{'mismatch': true};
-// }
+
 
 @Component({
   selector: 'app-register',
@@ -64,24 +65,30 @@ export class RegisterComponent implements OnInit {
       ]],
       passwordConfirm:[null,[
         Validators.required,
-        CustomValidators.passwordMatch
       ]]
-    }
-    // ,{
-    //     Validators: CustomValidators.passwordMatch
-    //   }
+    },{
+        validator: CustomValidators.passwordMatch
+      }
 
     )
   }
 
   onSubmit(){
+    console.log(this.registerForm);
     if(this.registerForm.invalid){
       return;
     }
     console.log(this.registerForm.value);
-    this.datalistService.register(this.registerForm.value).pipe(
-      map(user=>this.router.navigate(['login']))
-    ).subscribe();
-  }
+    this.datalistService.register(this.registerForm.value).subscribe(
+      res => {
+        console.log(res),
+        this.router.navigate(['login']),
+        localStorage.setItem('token', res.token)
 
+      },
+      err=> console.log(err)
+
+
+    );
+  }
 }

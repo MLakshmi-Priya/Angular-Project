@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpErrorResponse} from '@angular/common/http';
 import { DatalistService, LoginForm } from '../datalist.service';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
@@ -33,9 +34,22 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.invalid){
       console.log("wrong one");
     }
-    this.datalistService.login(this.loginForm.value).pipe(
-      map(data=> this.router.navigate(['home']))
-    ).subscribe();
+    this.datalistService.login(this.loginForm.value).subscribe(
+      res =>{
+        console.log(res),
+        this.router.navigate(['home']),
+        localStorage.setItem('token', res.token)
+      },
+      err=> { console.log(err);
+
+        // if(err instanceof HttpErrorResponse){
+        //   if (err.status === 401){
+        //     this.router.navigate(['/register'])
+        //   }
+        // }
+      }
+    );
+    // this.loggedIn=true;
 
   }
 

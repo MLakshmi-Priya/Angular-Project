@@ -3,6 +3,8 @@ import{ HttpClient } from '@angular/common/http';
 import{ IStudent } from './student';
 import {Observable } from 'rxjs/Observable';
 import { map, tap} from "rxjs/operators";
+import {  Router } from '@angular/router';
+
 
 export interface LoginForm{
   email:string;
@@ -24,21 +26,35 @@ export class DatalistService {
 
 cseurl= "http://localhost:3000/cseStudents";
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   login(loginForm: LoginForm){
 
-    return this.http.post<any>(' http://localhost:3000/login',{email: loginForm.email, password:loginForm.password});
+    return this.http.post<any>(' http://localhost:3030/api/login',{email: loginForm.email, password:loginForm.password});
   }
 
 // getLogin():Observable<LoginForm[]>{
 //   return this.http.get<LoginForm[]>("http://localhost:3000/login");
 // }
   register(user: User){
-    return this.http.post<any>("http://localhost:3000/register", user).pipe(
+    return this.http.post<any>("http://localhost:3030/api/register", user).pipe(
       map(user=>user)
     );
+  }
+
+  loggedIn(){
+    return !!localStorage.getItem('token')
+  }
+
+  logoutUser() {
+   localStorage.removeItem('token')
+   this.router.navigate(['/login'])
+ }
+
+  getToken(){
+    return localStorage.getItem('token')
   }
 
   getCseStudentDetails(): Observable<IStudent[]>{

@@ -12,8 +12,11 @@ import { DetailsComponent } from '../details/details.component';
   styleUrls: ['./cse.component.css']
 })
 export class CseComponent implements OnInit {
+
   public students: IStudent[]=[];
-      addForm= new FormGroup(
+  public  addForm = new FormGroup
+
+      (
     {
       name: new FormControl(),
       id: new FormControl(),
@@ -24,9 +27,18 @@ export class CseComponent implements OnInit {
 
   constructor( private datalistService: DatalistService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+
+    // this.addForm= this.fb.group({
+    //   name:[null,[Validators.required]],
+    //   id:[null,[Validators.required]],
+    //   branch:[null,[Validators.required]],
+    //   gpa:[null,[Validators.required]]
+    // });
+
   this.datalistService.getCseStudentDetails()
   .subscribe(data=> this.students= data);
+
   }
 
   onSubmit(){
@@ -40,10 +52,4 @@ export class CseComponent implements OnInit {
   // .deleteStudent(this.students.id)
   // .subscribe();
   // }
-  msg(){
-    console.log("hey There");
-  }
-
-
-
 }

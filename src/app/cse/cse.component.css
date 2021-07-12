@@ -1,11 +1,12 @@
-.container
+.container-fluid
 {
   display: flex;
+  align: center;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.container > *{
-  width: 100%;
+.container-fluid > *{
+  width: 40%;
 }

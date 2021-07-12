@@ -1,8 +1,21 @@
-<h1 align=center>{{title}}</h1>
+<nav>
+<!-- <h1 align=center>{{title}}</h1> -->
     <ul>
-      <li><a [routerLink]="['login']">Login</a></li>
-      <li><a [routerLink]="['register']">Register</a></li>
+
+      <li><a align="left" href="#">Student Directory</a></li>
+      <li><a [routerLink]="['home']">Home</a></li>
+      <li><a *ngIf="_ds.loggedIn()" [routerLink]="['cse']">CSE</a></li>
+      <li><a *ngIf="_ds.loggedIn()" [routerLink]="['ece']">ECE</a></li>
+      <li><a *ngIf="_ds.loggedIn()" [routerLink]="['eee']">EEE</a></li>
+      <li><a *ngIf="_ds.loggedIn()" [routerLink]="['mech']">MECH</a></li>
+      <li><a *ngIf="!_ds.loggedIn()" [routerLink]="['login']">Login</a></li>
+      <li><a *ngIf="!_ds.loggedIn()" [routerLink]="['register']">Register</a></li>
+      <li><a *ngIf="_ds.loggedIn()" (click)="_ds.logoutUser()">Logout</a></li>
+
+
       </ul>
+        <!-- <router-outlet></router-outlet> -->
+</nav>
       <section id="main">
         <!--<app-home [ninja]="ninja" (onYell)="yell($event)">Hello there!</app-home>-->
         <router-outlet></router-outlet>

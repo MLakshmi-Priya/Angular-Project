@@ -6,14 +6,18 @@ import  {EceComponent } from './ece/ece.component';
 import  { EeeComponent }from "./eee/eee.component";
 import  { MechComponent }from "./mech/mech.component";
 import {LoginComponent} from "./login/login.component";
-import {RegisterComponent} from "./register/register.component"
+import {RegisterComponent} from "./register/register.component";
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  {path :'home', component: HomeComponent},
-  {path :'home/cse', component: CseComponent},
-  {path:'home/ece', component: EceComponent },
-  {path:'home/eee', component: EeeComponent },
-  {path:'home/mech', component: MechComponent },
+  {path: '', redirectTo: '/login', pathMatch:"full"},
+  {path :'home', component: HomeComponent,
+  canActivate: [AuthGuard]
+},
+  {path :'cse', component: CseComponent, canActivate: [AuthGuard]},
+  {path:'ece', component: EceComponent, canActivate: [AuthGuard] },
+  {path:'eee', component: EeeComponent, canActivate: [AuthGuard] },
+  {path:'mech', component: MechComponent,canActivate: [AuthGuard] },
   {path:'login', component: LoginComponent },
   {path:'register', component: RegisterComponent },
 
